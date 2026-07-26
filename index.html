@@ -3,477 +3,377 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEACHER BON - Shop Roblox</title>
+    <title>ANNIE GAG2 SHOP</title>
     <style>
-        * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif;}
-        body {background: #fff9fc; color: #333; line-height: 1.6; padding-bottom: 40px;}
-
-        .top-bar {
-            background: linear-gradient(135deg, #ff6b9d, #c44569, #f8b500, #ff6b9d);
-            background-size: 400% 400%;
-            animation: gradient-anime 8s ease infinite;
-            color: white;
-            padding:14px 18px;
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            flex-wrap:wrap;
-            font-weight:700;
-            letter-spacing:1px;
-            text-shadow: 0 0 8px rgba(255,255,255,0.4);
-            border-bottom:2px solid #ffd700;
-        }
-        @keyframes gradient-anime {
-            0%{background-position:0% 50%}
-            50%{background-position:100% 50%}
-            100%{background-position:0% 50%}
-        }
-
-        .auth-bar {
-            background: linear-gradient(90deg, #fff0f5, #fff8e1);
-            border-bottom:1px solid #ffbad2;
-            padding:8px 18px;
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            flex-wrap:wrap;
-        }
-        .auth-bar a {
-            color:#c44569;
-            margin-left:12px;
-            text-decoration:none;
-            font-weight:600;
-        }
-        .auth-bar a:hover {color:#ff477e; text-shadow:0 0 4px #ffbad2;}
-
-        .lien-he-nho {
-            display:flex;
-            flex-direction:column;
-            gap:3px;
-            font-size:12px;
-        }
-        .lien-he-nho a {color:#884963; margin:0;}
-        .lien-he-nho a:hover {color:#ff477e;}
-
-        .menu {
-            background: white;
-            border-bottom:1px solid #ffbad2;
-            padding:10px;
-            display:flex;
-            justify-content:center;
-            gap:20px;
-            flex-wrap:wrap;
-        }
-        .menu a {
-            color:#884963;
-            text-decoration:none;
-            font-weight:600;
-            transition:all 0.2s;
-        }
-        .menu a:hover {color:#ff477e; transform:translateY(-2px);}
-        .menu .admin-link {display:none;}
-        .container {max-width:1000px; margin:0 auto; padding:0 12px;}
-
-        .shop-name {
-            text-align:center;
-            font-size:42px;
-            font-weight:800;
-            margin:24px 0;
-            background: linear-gradient(90deg, #ff477e, #f8b500, #ff477e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position:relative;
-        }
-        .shop-name::after {
-            content:"🎌✨🎌";
-            display:block;
-            font-size:18px;
-            margin-top:4px;
-            letter-spacing:8px;
-        }
-
-        .box {
-            background: white;
-            padding:16px;
-            border-radius:12px;
-            margin-bottom:16px;
-            border:2px solid #ffbad2;
-            box-shadow:0 3px 10px rgba(255,71,126,0.1);
-            transition:transform 0.2s;
-        }
-        .box:hover {transform:translateY(-2px);}
-        .box.admin-hide {display:none;}
-        .box h3 {
-            color:#c44569;
-            margin-bottom:10px;
-            font-size:18px;
-            border-left:4px solid #f8b500;
-            padding-left:10px;
-        }
-
-        #nap {
-            background: linear-gradient(145deg, #fff0f8, #fff8e8);
-            border:2px solid #ff8fab;
-        }
-        .bank-info {
-            background: linear-gradient(135deg, #fff0f5, #fffce8);
-            padding:12px;
-            border-radius:8px;
-            margin:8px 0;
-            border:1px dashed #ff8fab;
-        }
-        .qr-khoi {
-            text-align:center;
-            margin:12px 0;
-            display:none;
-            padding:12px;
-            background:#fff;
-            border-radius:10px;
-            border:2px solid #ffbad2;
-        }
-        .qr-anh {width:220px; border-radius:8px; margin-bottom:8px;}
-        .dem-nguoc {color:#ff477e; font-weight:600; font-size:16px; margin-top:6px;}
-        .canh-bao {color:#e74c3c; font-size:13px; margin-top:4px;}
-
-        .row {display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px; align-items:center;}
-        input, select, button {
-            padding:9px 10px;
-            border-radius:8px;
-            border:1px solid #ffbad2;
-            font-size:14px;
-        }
-        input, select {
-            background:#fff;
-            color:#333;
-            flex:1;
-            min-width:140px;
-        }
-        input:focus, select:focus {outline:none; border-color:#ff477e; box-shadow:0 0 0 3px rgba(255,71,126,0.15);}
-        button {
-            background: linear-gradient(90deg, #ff477e, #c44569);
-            color:white;
-            font-weight:600;
-            cursor:pointer;
-            border:none;
-            transition:all 0.2s;
-        }
-        button:hover {background: linear-gradient(90deg, #ff6b9d, #ff477e); transform:scale(1.02);}
-        .btn-sm {padding:5px 8px; font-size:13px;}
-        .btn-admin {background: linear-gradient(90deg, #f8b500, #f39c12);}
-        .btn-admin:hover {background: linear-gradient(90deg, #ffd700, #f8b500);}
-        .btn-ok {background: linear-gradient(90deg, #2ecc71, #27ae60);}
-        .btn-edit {background: linear-gradient(90deg, #3498db, #2980b9);}
-        .btn-xoa {background: linear-gradient(90deg, #e74c3c, #c0392b);}
-
-        .dm-item {display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #ffbad2;}
-        .loc-dm {margin-bottom:12px;}
-        .sp-item {
-            display:flex;
-            align-items:center;
-            gap:12px;
-            padding:10px 0;
-            border-bottom:1px solid #ffbad2;
-            flex-wrap:wrap;
-        }
-        .sp-anh {
-            width:75px; height:75px;
-            object-fit:cover;
-            border-radius:10px;
-            border:2px solid #ffbad2;
-            background:#fff9fc;
-        }
-        .sp-thongtin {flex:1; min-width:180px;}
-        .sp-ten {font-weight:700; margin-bottom:3px; color:#c44569;}
-        .sp-gia {color:#ff477e; font-weight:600; font-size:15px;}
-        .sp-dm {font-size:13px; color:#a86485; margin-top:2px;}
-
-        .tk-item {
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            padding:8px 0;
-            border-bottom:1px solid #ffbad2;
-            flex-wrap:wrap;
-            gap:6px;
-        }
-        .dh-item {padding:8px 0; border-bottom:1px solid #ffbad2; font-size:14px;}
-        .cho-xn {color:#f39c12; font-weight:500;}
-        .da-ok {color:#27ae60; font-weight:600;}
-        .tb {margin-top:8px; color:#27ae60; display:none; font-weight:600;}
-        .modal {
-            display:none;
-            position:fixed;
-            top:0; left:0;
-            width:100%; height:100%;
-            background:rgba(0,0,0,0.5);
-            justify-content:center;
-            align-items:center;
-            z-index:999;
-        }
-        .modal-box {
-            background:white;
-            padding:24px;
-            border-radius:14px;
-            width:90%; max-width:380px;
-            border:3px solid #ffbad2;
-            box-shadow:0 0 20px rgba(255,71,126,0.25);
-        }
-        .close {float:right; font-size:22px; cursor:pointer; color:#aaa; transition:color 0.2s;}
-        .close:hover {color:#ff477e;}
-        .admin-hide {display:none;}
-        .nhat-nho {font-size:12px; color:#a86485; margin-top:4px; font-style:italic;}
-        #anh-xem {width:80px; height:80px; object-fit:cover; border-radius:8px; margin-top:6px; display:none; border:2px solid #ffbad2;}
-        
-        .thong-bao-don {
-            position:fixed;
-            top:15px;
-            right:15px;
-            background:linear-gradient(90deg, #ff477e, #c44569);
-            color:white;
-            padding:12px 18px;
-            border-radius:10px;
-            box-shadow:0 4px 12px rgba(0,0,0,0.15);
-            z-index:9999;
-            display:none;
-            animation: hienLen 0.3s ease;
-        }
-        @keyframes hienLen {
-            from {transform:translateY(-20px); opacity:0;}
-            to {transform:translateY(0); opacity:1;}
-        }
+        * {margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif;}
+        body {background: #0f172a; color: #e6edf3; line-height: 1.6; padding-bottom: 60px;}
+        .top-bar {background: linear-gradient(90deg, #f472b6, #fb923c); padding:14px 20px; display:flex; justify-content:space-between; align-items:center; font-weight:bold; font-size:16px; flex-wrap:wrap;}
+        .auth-bar {text-align:right; padding:8px 20px; background:#1e293b;}
+        .auth-bar a {color:#58a6ff; margin-left:15px; text-decoration:none; font-weight:600;}
+        .menu {background:#1e293b; padding:12px; display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:20px;}
+        .menu a {color:#58a6ff; text-decoration:none; font-weight:600;}
+        .ho-tro {text-align:center; padding:10px; margin-top:15px; background:#1e293b; border-radius:8px;}
+        .ho-tro a {color:#facc15; margin:0 10px; text-decoration:none; font-weight:600;}
+        .container {max-width:1200px; margin:0 auto; padding:0 15px;}
+        .box {background:#1e293b; padding:18px; border-radius:8px; margin-bottom:20px; border:1px solid #334155;}
+        .box h3 {color:#f472b6; margin-bottom:12px;}
+        .shop-name {text-align:center; font-size:40px; color:#facc15; margin:20px 0; font-weight:bold;}
+        .row {display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;}
+        input, select, button, textarea {padding:10px; border-radius:5px; border:1px solid #475569; font-size:15px;}
+        input, select, textarea {background:#0f172a; color:white; flex:1; min-width:170px;}
+        button {background:#f472b6; color:white; font-weight:bold; cursor:pointer; border:none;}
+        .btn-quanly {background:#facc15; color:#0f172a;}
+        .btn-ok {background:#10b981;}
+        .btn-xacnhan {background:#f59e0b;}
+        .btn-doi {background:#3b82f6;}
+        .btn-xoa {background:#ef4444; color:white; padding:6px 12px; font-size:13px;}
+        .bank-box {background:#334155; padding:12px; border-radius:5px; margin:10px 0;}
+        .sp-item {display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid #475569; flex-wrap:wrap;}
+        .sp-anh {width:80px; height:80px; object-fit:cover; border-radius:6px; border:1px solid #f472b6;}
+        .sp-thongtin {flex:1; min-width:200px;}
+        .sp-ma {font-size:13px; color:#94a3b8; margin-top:2px;}
+        .don-item {padding:10px; border-bottom:1px solid #475569; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;}
+        .cho-xn {color:#facc15; font-weight:500;}
+        .da-giao {color:#10b981; font-weight:500;}
+        .tb {margin-top:10px; color:#7ee787; display:none; font-weight:bold;}
+        .modal {display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:999;}
+        .modal-content {background:#1e293b; padding:25px; border-radius:8px; width:90%; max-width:420px; border:1px solid #f472b6;}
+        .close {float:right; font-size:22px; cursor:pointer; color:#94a3b8;}
+        .chi-nguoi-ban {display:none;}
+        .btn-sm {padding:6px 10px; font-size:13px;}
+        .danhgia {margin-top:8px; font-size:14px; color:#f472b6;}
+        .label {font-weight:500; margin-bottom:4px; display:block; color:#cbd5e1;}
+        .thongbao {color:#10b981; font-weight:bold; margin-top:10px; text-align:center;}
+        .list-dm {margin-top:10px; max-height:120px; overflow-y:auto;}
+        .dm-item {display:flex; justify-content:space-between; align-items:center; padding:6px 8px; background:#334155; border-radius:4px; margin-bottom:5px;}
     </style>
 </head>
 <body>
-<div class="thong-bao-don" id="thong-bao-moi">🔔 Có đơn hàng mới cần xử lý!</div>
-
-<div class="top-bar"><div>🎌 TEACHER BON - SHOP ROBLOX 🎌</div><div>✨ Uy Tín - Tận Tâm - Chất Lượng ✨</div></div>
+<div class="top-bar"><div>PREMIUM GAME MARKETPLACE</div><div>Uy tín · Nhanh chóng · An toàn</div></div>
 <div class="auth-bar">
-    <div>
-        <span id="menu-khach">
-            <a href="#" onclick="moDangKy()">📝 Đăng Ký</a>
-            <a href="#" onclick="moDangNhap()">🔐 Đăng Nhập</a>
-        </span>
-        <span id="menu-dangnhap" style="display:none;">
-            <span id="ten-nguoi" style="color:#ff477e; font-weight:bold;"></span>
-            <a href="#" onclick="dangXuat()">Đăng Xuất</a>
-        </span>
-        <span id="menu-admin" class="admin-hide">
-            <a href="#qldm">📂 Danh Mục</a>
-            <a href="#banhang">Đăng Bán</a>
-            <a href="#qlkhach">QL Khách</a>
-            <a href="#qldon">Duyệt Đơn</a>
-            <a href="#lichsu">📑 Lịch Sử</a>
-            <a href="#" onclick="dangXuat()">Đăng Xuất</a>
-        </span>
-    </div>
-    <div class="lien-he-nho">
-        <a href="https://www.facebook.com/share/1ahNCL78yc/" target="_blank">📘 Facebook</a>
-        <a href="https://discord.gg/rscNF8X57" target="_blank">💬 Discord</a>
-    </div>
+    <span id="guestMenu">
+        <a href="#" onclick="moDangKy()">📝 Đăng Ký</a>
+        <a href="#" onclick="moDangNhap()">🔐 Đăng Nhập</a>
+    </span>
+    <span id="userMenu" style="display:none;">
+        <span id="tenKhach" style="color:#facc15; font-weight:bold;"></span>
+        <a href="#" onclick="moDoiMatKhau()">🔑 Đổi Mật Khẩu</a>
+        <a href="#" onclick="dangXuat()">🚪 Đăng Xuất</a>
+    </span>
+    <span id="ownerMenu" class="chi-nguoi-ban">
+        <a href="#quanly" style="color:#facc15;">⚙️ QUẢN LÝ SHOP</a>
+        <a href="#" onclick="dangXuat()">🚪 Đăng Xuất</a>
+    </span>
 </div>
 <div class="menu">
-    <a href="#nap">💳 Nạp Tiền</a>
-    <a href="#sanpham">🎁 Sản Phẩm</a>
-    <a href="#qldon" class="admin-link">📋 Đơn Hàng</a>
-    <a href="#lichsu" class="admin-link">📑 Lịch Sử</a>
+    <a href="#nap-the">Nạp Thẻ</a>
+    <a href="#chuyen-khoan">Nạp Ngân Hàng</a>
+    <a href="#danh-muc">Danh Mục</a>
+    <a href="#don-hang">Đơn Hàng</a>
+    <a href="#quanly" class="chi-nguoi-ban">Quản Lý</a>
+</div>
+<div class="ho-tro">
+    <strong>📞 HỖ TRỢ KHÁCH HÀNG:</strong>
+    <a href="https://www.facebook.com/share/1ELiw1XNPi/" target="_blank">📘 Facebook Xuân Thành</a>
+    <a href="https://discord.gg/rscNF8X57" target="_blank">💬 Nhóm Discord</a>
 </div>
 <div class="container">
-    <h1 class="shop-name">TEACHER BON</h1>
+    <h1 class="shop-name">🛒 ANNIE GAG2 SHOP</h1>
 
-    <div class="box" id="nap">
-        <h3>💳 NẠP TIỀN VÀO SHOP</h3>
-        <div style="margin-bottom:12px;">
-            <strong>📱 Nạp thẻ cào:</strong>
-            <div class="row" style="margin-top:6px;">
-                <select><option>Viettel</option><option>Vinaphone</option><option>Mobifone</option></select>
-                <select><option>10.000đ</option><option>20.000đ</option><option>50.000đ</option><option>100.000đ</option></select>
-            </div>
-            <div class="row">
-                <input type="text" placeholder="Mã thẻ">
-                <input type="text" placeholder="Số seri">
-                <button onclick="napThe()">Gửi Thẻ</button>
-            </div>
-            <div class="tb">✅ Đã ghi nhận thẻ!</div>
-            <p class="nhat-nho">* Nhận đủ 80% giá trị thẻ</p>
-        </div>
-        <div>
-            <strong>💸 Nạp qua Ngân hàng/ZaloPay:</strong>
-            <div class="bank-info">
-                <p>📱 Số tài khoản: <strong>0985537559</strong></p>
-                <p>👤 Chủ tài khoản: <strong>Nguyễn Xuân Thành</strong></p>
-                <p>📝 Nội dung: <strong>NAP + Tên tài khoản shop</strong></p>
-            </div>
-            <div class="row">
-                <input type="number" id="so-tien-nap" placeholder="Số tiền nạp (Tối thiểu 10.000đ)">
-                <button onclick="taoQR()">Tạo QR thanh toán</button>
-            </div>
-            <div class="qr-khoi" id="khoi-qr">
-                <img src="https://i.imgur.com/8Z7XQ9L.png" class="qr-anh" alt="QR Thanh toán">
-                <div class="dem-nguoc">⏱ Mã QR còn hiệu lực: <span id="dem-giay">60</span> giây</div>
-                <p class="canh-bao">* Vui lòng chuyển đúng số tiền và nội dung trên</p>
-                <button style="margin-top:8px;" onclick="xacNhanChuyen()">✅ Đã chuyển khoản</button>
-            </div>
-            <div class="tb" id="thong-bao-nap">✅ Ghi nhận nạp tiền thành công!</div>
-        </div>
+    <div class="box" id="nap-the">
+        <h3>📱 NẠP THẺ CÀO</h3>
+        <div class="row"><select><option>Viettel</option><option>Vinaphone</option><option>Mobifone</option><option>Zing</option></select><select><option>10.000đ</option><option>20.000đ</option><option>50.000đ</option><option>100.000đ</option></select></div>
+        <div class="row"><input type="text" placeholder="Mã thẻ"><input type="text" placeholder="Số seri"></div>
+        <button onclick="napThe()">✅ Nạp Thẻ</button><div class="tb" id="tb-the">✅ Đã ghi nhận!</div><p style="color:#94a3b8; margin-top:8px;">* Thực nhận 80% mệnh giá</p>
     </div>
 
-    <div class="box admin-hide" id="qldm"><h3>📂 QUẢN LÝ DANH MỤC</h3>
-        <div class="row"><input type="text" id="ten-dm" placeholder="Nhập tên danh mục"><button class="btn-admin" onclick="themDanhMuc()">Thêm</button></div>
-        <div id="ds-dm"></div>
-    </div>
-
-    <div class="box" id="sanpham"><h3>🎁 DANH SÁCH SẢN PHẨM</h3>
-        <div class="loc-dm">
-            <select id="loc-danh-muc" onchange="locSanPham()">
-                <option value="tatca">📂 Tất cả danh mục</option>
-            </select>
+    <div class="box" id="chuyen-khoan">
+        <h3>💳 NẠP NGÂN HÀNG</h3>
+        <div class="bank-box">
+            <p>📌 Số tài khoản: <strong>0985537559</strong></p>
+            <p>📌 Chủ tài khoản: <strong>Nguyễn Xuân Thành</strong></p>
+            <p>📌 Nội dung chuyển khoản: <strong>NAP + Tên tài khoản shop</strong></p>
         </div>
-        <div id="ds-sp"></div>
+        <button onclick="chuyenKhoan()">💸 Đã Chuyển Khoản</button>
+        <div class="tb" id="tb-ck">✅ Đã ghi nhận!</div>
     </div>
 
-    <div class="box admin-hide" id="banhang"><h3>⚙️ ĐĂNG BÁN SẢN PHẨM</h3>
-        <div class="row"><input type="text" id="ten-sp" placeholder="Tên sản phẩm"><input type="text" id="gia-sp" placeholder="Giá bán"></div>
-        <div class="row"><select id="chon-dm"></select></div>
+    <div class="box" id="danh-muc"><h3>📂 DANH MỤC SẢN PHẨM</h3><div id="danhSachSP"></div></div>
+
+    <div class="box chi-nguoi-ban" id="quanly">
+        <h3>➕ QUẢN LÝ & ĐĂNG BÁN</h3>
+        <div style="margin-bottom:20px; padding-bottom:15px; border-bottom:1px solid #475569;">
+            <h4 style="margin-bottom:10px; color:#facc15;">📂 Quản Lý Danh Mục</h4>
+            <div class="row"><input type="text" id="tenDanhMuc" placeholder="Thêm danh mục mới"></div>
+            <button class="btn-quanly btn-sm" onclick="luuDanhMuc()">✅ Lưu & Hiện Ngay</button>
+            <div class="list-dm" id="danhSachDanhMuc"></div>
+            <div class="tb" id="tb-dm">✅ Đã cập nhật danh mục!</div>
+        </div>
+        <h4 style="margin-bottom:10px; color:#facc15;">🛒 Đăng Bán Sản Phẩm</h4>
+        <div class="form-group">
+            <label class="label">Tên sản phẩm</label>
+            <input type="text" id="tenSP" placeholder="Nhập tên sản phẩm">
+        </div>
         <div class="row">
-            <input type="file" id="chon-anh" accept="image/*" onchange="xemAnh(this)">
-            <img id="anh-xem" alt="Xem trước ảnh">
+            <div style="flex:1; min-width:170px;">
+                <label class="label">Danh mục</label>
+                <select id="danhMucSP">
+                    <option value="">-- Chọn danh mục --</option>
+                </select>
+            </div>
+            <div style="flex:1; min-width:170px;">
+                <label class="label">Mã sản phẩm</label>
+                <input type="text" id="maSP" placeholder="Mã / ID">
+            </div>
         </div>
-        <button class="btn-admin" onclick="dangBan()">Đăng Bán Ngay</button>
-        <div class="tb">✅ Đăng sản phẩm thành công!</div>
+        <div class="row">
+            <div style="flex:1; min-width:170px;">
+                <label class="label">Giá bán (VNĐ)</label>
+                <input type="number" id="giaSP" placeholder="Ví dụ: 10000">
+            </div>
+            <div style="flex:1; min-width:170px;">
+                <label class="label">Link ảnh sản phẩm</label>
+                <input type="text" id="linkAnhSP" placeholder="Link ảnh">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="label">Mật khẩu / Thông tin khác</label>
+            <input type="text" id="mkSP" placeholder="Nếu có">
+        </div>
+        <div class="form-group">
+            <label class="label">Mô tả chi tiết sản phẩm</label>
+            <textarea id="moTaSP" placeholder="Mô tả sản phẩm..."></textarea>
+        </div>
+        <button class="btn-quanly" onclick="dangBan()">✅ Đăng & Hiện Ngay</button>
+        <div class="tb" id="tb-dangban">✅ Đăng sản phẩm thành công!</div>
     </div>
 
-    <div class="box admin-hide" id="qlkhach"><h3>👤 QUẢN LÝ KHÁCH HÀNG</h3><div id="ds-khach"></div></div>
-    <div class="box admin-hide" id="qldon"><h3>📋 DANH SÁCH ĐƠN HÀNG</h3><div id="ds-don"></div></div>
-    <div class="box admin-hide" id="lichsu"><h3>📑 LỊCH SỬ GIAO DỊCH</h3><div id="ds-ls"></div></div>
+    <div class="box" id="don-hang">
+        <h3>📋 ĐƠN HÀNG CHỜ DUYỆT <span class="chi-nguoi-ban" style="color:#facc15;">(Chỉ Admin xem & xử lý)</span></h3>
+        <div id="danhSachDon"></div>
+    </div>
 </div>
 
-<div class="modal" id="khung-dk">
-    <div class="modal-box">
-        <span class="close" onclick="dongKhung('khung-dk')">&times;</span>
-        <h3 style="text-align:center; margin-bottom:12px; color:#c44569;">📝 ĐĂNG KÝ TÀI KHOẢN</h3>
-        <input type="text" id="dk-tk" placeholder="Tên đăng nhập" style="width:100%; margin-bottom:8px;">
-        <input type="password" id="dk-mk" placeholder="Mật khẩu" style="width:100%; margin-bottom:8px;">
-        <input type="text" id="dk-ten" placeholder="Tên hiển thị" style="width:100%; margin-bottom:12px;">
-        <button onclick="dangKy()">Tạo Tài Khoản</button>
+<div class="modal" id="modalDangKy">
+    <div class="modal-content"><span class="close" onclick="dongModal('modalDangKy')">&times;</span>
+    <h3 style="text-align:center; margin-bottom:15px;">📝 ĐĂNG KÝ TÀI KHOẢN</h3>
+    <input type="text" id="dk_tk" placeholder="Tên đăng nhập" style="width:100%; margin-bottom:10px;">
+    <input type="password" id="dk_mk" placeholder="Mật khẩu" style="width:100%; margin-bottom:10px;">
+    <input type="password" id="dk_xn_mk" placeholder="Xác nhận mật khẩu" style="width:100%; margin-bottom:15px;">
+    <button onclick="dangKy()">Đăng Ký</button>
+    <div id="tbDangKy" class="thongbao" style="display:none;"></div>
     </div>
 </div>
-<div class="modal" id="khung-dn">
-    <div class="modal-box">
-        <span class="close" onclick="dongKhung('khung-dn')">&times;</span>
-        <h3 style="text-align:center; margin-bottom:12px; color:#c44569;">🔐 ĐĂNG NHẬP</h3>
-        <input type="text" id="dn-tk" placeholder="Tên đăng nhập" style="width:100%; margin-bottom:8px;">
-        <input type="password" id="dn-mk" placeholder="Mật khẩu" style="width:100%; margin-bottom:12px;">
-        <button onclick="dangNhap()">Vào Shop</button>
+
+<div class="modal" id="modalDangNhap">
+    <div class="modal-content"><span class="close" onclick="dongModal('modalDangNhap')">&times;</span>
+    <h3 style="text-align:center; margin-bottom:15px;">🔐 ĐĂNG NHẬP</h3>
+    <input type="text" id="dn_tk" placeholder="Tên đăng nhập" style="width:100%; margin-bottom:10px;">
+    <input type="password" id="dn_mk" placeholder="Mật khẩu" style="width:100%; margin-bottom:15px;">
+    <button onclick="dangNhap()">Đăng Nhập</button>
     </div>
 </div>
-<div class="modal" id="khung-mua">
-    <div class="modal-box">
-        <span class="close" onclick="dongKhung('khung-mua')">&times;</span>
-        <h3 style="text-align:center; margin-bottom:12px; color:#c44569;">🛒 XÁC NHẬN MUA HÀNG</h3>
-        <p>Sản phẩm: <strong id="sp-chon"></strong></p>
-        <p>Thành tiền: <strong id="gia-chon"></strong></p>
-        <input type="text" id="ten-roblox" placeholder="Nhập tên tài khoản Roblox" style="width:100%; margin:10px 0;">
-        <button onclick="xacNhanMua()">Đặt Hàng Ngay</button>
+
+<div class="modal" id="modalDoiMK">
+    <div class="modal-content"><span class="close" onclick="dongModal('modalDoiMK')">&times;</span>
+    <h3 style="text-align:center; margin-bottom:15px;">🔑 ĐỔI MẬT KHẨU</h3>
+    <input type="password" id="mk_cu" placeholder="Mật khẩu cũ" style="width:100%; margin-bottom:10px;">
+    <input type="password" id="mk_moi" placeholder="Mật khẩu mới" style="width:100%; margin-bottom:10px;">
+    <input type="password" id="mk_xacnhan" placeholder="Nhập lại mật khẩu mới" style="width:100%; margin-bottom:15px;">
+    <button class="btn-doi" onclick="luuDoiMK()">Lưu Thay Đổi</button>
     </div>
 </div>
-<div class="modal" id="khung-doi">
-    <div class="modal-box">
-        <span class="close" onclick="dongKhung('khung-doi')">&times;</span>
-        <h3 style="text-align:center; margin-bottom:12px; color:#c44569;">🔑 ĐỔI MẬT KHẨU</h3>
-        <p>Tài khoản: <strong id="tk-doi"></strong></p>
-        <input type="text" id="mk-moi" placeholder="Mật khẩu mới" style="width:100%; margin:10px 0;">
-        <button onclick="luuMK()">Lưu Thay Đổi</button>
+
+<div class="modal" id="modalMua">
+    <div class="modal-content"><span class="close" onclick="dongModal('modalMua')">&times;</span>
+    <h3 style="text-align:center; margin-bottom:15px;">🛒 MUA SẢN PHẨM</h3>
+    <input type="text" id="tkRoblox" placeholder="Tài khoản Roblox" style="width:100%; margin-bottom:10px;">
+    <input type="password" id="mkRoblox" placeholder="Mật khẩu Roblox (không bắt buộc)" style="width:100%; margin-bottom:15px;">
+    <button onclick="xacNhanMua()">✅ Xác nhận mua</button>
+    </div>
+</div>
+
+<div class="modal" id="modalDanhGia">
+    <div class="modal-content"><span class="close" onclick="dongModal('modalDanhGia')">&times;</span>
+    <h3 style="text-align:center; margin-bottom:15px;">⭐ ĐÁNH GIÁ ĐƠN HÀNG</h3>
+    <p style="text-align:center; margin-bottom:10px;">Đơn hàng đã hoàn thành!</p>
+    <textarea id="noiDungDanhGia" placeholder="Viết đánh giá của bạn..." style="height:80px;"></textarea>
+    <button class="btn-ok" onclick="guiDanhGia()">Gửi Đánh Giá</button>
     </div>
 </div>
 
 <script>
-const ADMIN = {tk:'admin123', mk:'123456789', maNhanh:'MjAxMjIwMTQ='};
+const TAIKHOAN_CHU = 'xuanthanh';
+const MATKHAU_CHU = '20122014';
+
 let dsTaiKhoan = JSON.parse(localStorage.getItem('dsTaiKhoan')) || [];
 let dsDanhMuc = JSON.parse(localStorage.getItem('dsDanhMuc')) || [];
 let dsSanPham = JSON.parse(localStorage.getItem('dsSanPham')) || [];
 let dsDonHang = JSON.parse(localStorage.getItem('dsDonHang')) || [];
-let dsLichSu = JSON.parse(localStorage.getItem('dsLichSu')) || [];
-let nguoiDung = null, spTam = null, vtDoi = null, anhTam = '';
-let bienDem = null;
+let nguoiDung = null;
+let spDangChon = null;
 
-function luu(){
+function luuDuLieu(){
     localStorage.setItem('dsTaiKhoan', JSON.stringify(dsTaiKhoan));
     localStorage.setItem('dsDanhMuc', JSON.stringify(dsDanhMuc));
     localStorage.setItem('dsSanPham', JSON.stringify(dsSanPham));
     localStorage.setItem('dsDonHang', JSON.stringify(dsDonHang));
-    localStorage.setItem('dsLichSu', JSON.stringify(dsLichSu));
 }
 
-function capNhatChonDanhMuc(){
-    let htmlLoc = `<option value="tatca">📂 Tất cả danh mục</option>`;
-    let htmlBan = '';
-    dsDanhMuc.forEach((dm)=>{
-        htmlLoc += `<option value="${dm.ten}">${dm.ten}</option>`;
-        htmlBan += `<option value="${dm.ten}">${dm.ten}</option>`;
+function capNhatDanhMucSelect(){
+    let select = document.getElementById('danhMucSP');
+    select.innerHTML = `<option value="">-- Chọn danh mục --</option>`;
+    dsDanhMuc.forEach(dm => {
+        select.innerHTML += `<option value="${dm.ten}">${dm.ten}</option>`;
     });
-    document.getElementById('loc-danh-muc').innerHTML = htmlLoc;
-    document.getElementById('chon-dm').innerHTML = htmlBan;
 }
-function themDanhMuc(){
-    if(!nguoiDung?.laAdmin) return;
-    let ten = document.getElementById('ten-dm').value.trim();
-    if(!ten) return alert('⚠️ Nhập tên danh mục!');
-    if(dsDanhMuc.some(d=>d.ten===ten)) return alert('❌ Danh mục đã tồn tại!');
-    dsDanhMuc.push({ten}); luu(); taiLai(); document.getElementById('ten-dm').value='';
-}
-function xoaDanhMuc(i){
-    if(!confirm('⚠️ Xóa danh mục này? Sản phẩm thuộc danh mục sẽ không bị xóa!')) return;
-    dsDanhMuc.splice(i,1); luu(); taiLai();
-}
-function locSanPham(){
-    let gt = document.getElementById('loc-danh-muc').value;
-    let ds = gt==='tatca' ? dsSanPham : dsSanPham.filter(s=>s.dm===gt);
-    hienThiSanPham(ds);
-}
-function hienThiSanPham(ds){
-    document.getElementById('ds-sp').innerHTML = ds.length ? '' : `<p style="color:#a86485; text-align:center; padding:20px;">😕 Chưa có sản phẩm nào</p>`;
-    ds.forEach(sp=>{
-        document.getElementById('ds-sp').innerHTML += `
-        <div class="sp-item">
-            <img src="${sp.anh||''}" class="sp-anh" alt="${sp.ten}">
-            <div class="sp-thongtin">
-                <div class="sp-ten">${sp.ten}</div>
-                <div class="sp-gia">💰 ${sp.gia}</div>
-                <div class="sp-dm">📂 ${sp.dm||'Chưa có danh mục'}</div>
-            </div>
-            <button onclick="moMua('${sp.ten}','${sp.gia}')">Mua Ngay</button>
+
+function capNhatDanhSachDanhMuc(){
+    let html = '';
+    dsDanhMuc.forEach((dm, idx)=>{
+        html += `<div class="dm-item">
+            <span>📂 ${dm.ten}</span>
+            <button class="btn-xoa btn-sm" onclick="xoaDanhMuc(${idx})">🗑️ Xóa</button>
         </div>`;
     });
+    document.getElementById('danhSachDanhMuc').innerHTML = html;
 }
-function xemAnh(input){
-    if(input.files && input.files[0]){
-        let reader = new FileReader();
-        reader.onload = e => {
-            anhTam = e.target.result;
-            document.getElementById('anh-xem').src = anhTam;
-            document.getElementById('anh-xem').style.display = 'block';
-        };
-        reader.readAsDataURL(input.files[0]);
+
+function taiDuLieu(){
+    capNhatDanhMucSelect();
+    capNhatDanhSachDanhMuc();
+    
+    let htmlSP = '';
+    dsSanPham.forEach((sp, idx)=>{
+        htmlSP += `<div class="sp-item">
+            <img src="${sp.linkAnh||'https://via.placeholder.com/80'}" class="sp-anh" alt="${sp.ten}">
+            <div class="sp-thongtin">
+                <strong>${sp.ten}</strong> - ${parseInt(sp.gia).toLocaleString('vi-VN')}đ
+                <div class="sp-ma">Mã: ${sp.ma||'---'} | Danh mục: ${sp.danhMuc||'Chưa có'}</div>
+            </div>
+            <div class="chi-nguoi-ban">
+                <button class="btn-xoa btn-sm" onclick="xoaSanPham(${idx})" style="margin-right:5px;">🗑️ Xóa</button>
+            </div>
+            <button class="btn-ok btn-sm" onclick="moMua(${idx})">🛒 Mua</button>
+        </div>`;
+    });
+    if(dsSanPham.length===0) htmlSP = `<p style="color:#94a3b8; text-align:center; padding:15px;">Chưa có sản phẩm nào</p>`;
+    document.getElementById('danhSachSP').innerHTML = htmlSP;
+
+    let htmlDon = '';
+    dsDonHang.forEach((don, idx)=>{
+        htmlDon += `<div class="don-item">
+            <div>
+                <strong>${don.tenSP}</strong> | ${don.tenKhach} | TK: ${don.taiKhoanRoblox}
+                <br><small style="color:#94a3b8;">Giá: ${parseInt(don.gia).toLocaleString('vi-VN')}đ | ${don.thoiGian}</small>
+            </div>
+            <span class="cho-xn"> ⚠️ CHỜ DUYỆT</span>
+        </div>`;
+    });
+    if(dsDonHang.length===0) htmlDon = `<p style="color:#94a3b8; text-align:center; padding:15px;">Chưa có đơn hàng nào chờ duyệt</p>`;
+    document.getElementById('danhSachDon').innerHTML = htmlDon;
+}
+taiDuLieu();
+
+function moDangKy(){document.getElementById('modalDangKy').style.display='flex'; document.getElementById('tbDangKy').style.display='none';}
+function moDangNhap(){document.getElementById('modalDangNhap').style.display='flex';}
+function moDoiMatKhau(){document.getElementById('modalDoiMK').style.display='flex';}
+function moMua(idx){spDangChon = idx; document.getElementById('modalMua').style.display='flex';}
+function dongModal(id){document.getElementById(id).style.display='none';}
+
+function dangKy(){
+    let tk = document.getElementById('dk_tk').value.trim();
+    let mk = document.getElementById('dk_mk').value.trim();
+    let xn_mk = document.getElementById('dk_xn_mk').value.trim();
+    let tb = document.getElementById('tbDangKy');
+    tb.style.display='none';
+    if(!tk||!mk||!xn_mk){tb.style.display='block'; tb.style.color='#ef4444'; tb.innerText='❌ Điền đủ thông tin!'; return;}
+    if(mk !== xn_mk){tb.style.display='block'; tb.style.color='#ef4444'; tb.innerText='❌ Mật khẩu không khớp!'; return;}
+    if(dsTaiKhoan.some(a=>a.tk===tk)){tb.style.display='block'; tb.style.color='#ef4444'; tb.innerText='❌ Tài khoản đã tồn tại!'; return;}
+    dsTaiKhoan.push({tk,mk,ten:tk});
+    luuDuLieu();
+    tb.style.display='block'; tb.style.color='#10b981'; tb.innerText='✅ Đăng ký thành công!';
+    setTimeout(()=>dongModal('modalDangKy'), 2000);
+}
+
+function dangNhap(){
+    let tk = document.getElementById('dn_tk').value.trim();
+    let mk = document.getElementById('dn_mk').value.trim();
+    if(tk === TAIKHOAN_CHU && mk === MATKHAU_CHU){
+        nguoiDung = {loai:'chu', ten:'Quản Trị Viên'};
+        document.getElementById('ownerMenu').style.display='inline';
+        document.getElementById('guestMenu').style.display='none';
+        document.getElementById('tenKhach').innerText = 'Quản Trị Viên';
+        document.getElementById('userMenu').style.display='inline';
+        document.querySelectorAll('.chi-nguoi-ban').forEach(e=>e.style.display='inline');
+        dongModal('modalDangNhap');
+        alert('🔐 Đăng nhập quản lý thành công!');
+        return;
     }
+    let acc = dsTaiKhoan.find(a=>a.tk===tk && a.mk===mk);
+    if(acc){
+        nguoiDung = {loai:'khach', ten:acc.ten, tk:acc.tk};
+        document.getElementById('guestMenu').style.display='none';
+        document.getElementById('tenKhach').innerText = acc.ten;
+        document.getElementById('userMenu').style.display='inline';
+        document.querySelectorAll('.chi-nguoi-ban').forEach(e=>e.style.display='none');
+        dongModal('modalDangNhap');
+        alert('✅ Đăng nhập thành công!');
+    }else alert('❌ Sai tài khoản/mật khẩu!');
 }
-function taiLai(){
-    capNhatChonDanhMuc();
-    document.getElementById('ds-dm').innerHTML = '';
-    dsDanhMuc.forEach((dm,i)=>document.getElementById('ds-dm').innerHTML += `<div class="dm-item"><span>📂 ${dm.ten}</span><button class="btn-sm btn-xoa" onclick="xoaDanhMuc(${i})">Xóa</button></div>`);
-    locSanPham();
 
-    if(nguoiDung?.laAdmin){
-        document.querySelectorAll('.admin-hide').forEach(e=>e.style.display='block');
-        document.querySelectorAll('.menu .admin-link').forEach(e=>e.style.display='inline-block');
-        
-        document.getElementById('ds-khach').innerHTML = '';
-        dsTaiKhoan.filter(i=>i.tk!==ADMIN.tk).forEach((tk)=>
-            document.getElementById('ds-khach').innerHTML += `<div class="tk-item"><span>👤 ${tk.ten} | @${tk.tk}</span><button class="btn-sm btn-edit" onclick="moDoi(${dsTaiKhoan.indexOf(tk)})">Đổi MK</button></div>`
-        );
+function luuDoiMK(){
+    if(!nguoiDung) return alert('Chưa đăng nhập!');
+    if(nguoiDung.loai==='chu') return alert('⚠️ Không đổi mật khẩu Admin!');
+    let mkCu = document.getElementById('mk_cu').value.trim();
+    let mkMoi = document.getElementById('mk_moi').value.trim();
+    let mkLai = document.getElementById('mk_xacnhan').value.trim();
+    let vt = dsTaiKhoan.findIndex(a=>a.tk===nguoiDung.tk);
+    if(dsTaiKhoan[vt].mk !== mkCu) return alert('❌ Mật khẩu cũ sai!');
+    if(mkMoi.length <6) return alert('❌ Mật khẩu ít nhất 6 ký tự!');
+    if(mkMoi !== mkLai) return alert('❌ Nhập lại không khớp!');
+    dsTaiKhoan[vt].mk = mkMoi;
+    luuDuLieu(); alert('✅ Đổi mật khẩu OK!'); dongModal('modalDoiMK');
+}
 
-        document.getElementById('ds-don').innerHTML = dsDonHang.length ? '' : `<p style="color:#a86485; text-align:center; padding:20px;">😕 Chưa có đơn hàng nào</p>`;
-        dsDonHang.forEach((dh,i)=>{
-            let nut = `<button class="btn-sm btn-ok" onclick="daGui(${i})">✅ Đã Gift</button>`;
-            let trang = dh.xong ? `<span class="da-ok">✅ Đã giao hàng</span>` : `<span class="cho-xn">⏳ Đang chờ xử lý</span>`;
-            document.getElement
+function dangXuat(){
+    nguoiDung = null;
+    document.getElementById('guestMenu').style.display='inline';
+    document.getElementById('userMenu').style.display='none';
+    document.getElementById('ownerMenu').style.display='none';
+    document.querySelectorAll('.chi-nguoi-ban').forEach(e=>e.style.display='none');
+    alert('Đã đăng xuất!');
+}
+
+function luuDanhMuc(){
+    if(!nguoiDung || nguoiDung.loai!=='chu') return alert('Chỉ Admin!');
+    let ten = document.getElementById('tenDanhMuc').value.trim();
+    if(!ten) return alert('Nhập tên danh mục!');
+    if(dsDanhMuc.some(dm=>dm.ten===ten)) return alert('Đã có danh mục này!');
+    dsDanhMuc.push({ten});
+    luuDuLieu(); taiDuLieu();
+    document.getElementById('tb-dm').style.display='block';
+    setTimeout(()=>document.getElementById('tb-dm').style.display='none',3000);
+    document.getElementById('tenDanhMuc').value='';
+}
+function xoaDanhMuc(idx){
+    if(!confirm('Bạn có chắc muốn xóa danh mục này?\nSản phẩm cũ vẫn được giữ lại!')) return;
+    dsDanhMuc.splice(idx,1);
+    luuDuLieu(); taiDuLieu();
+}
+
+function dangBan(){
+    if(!nguoiDung || nguoiDung.loai!=='chu') return alert('Chỉ Admin!');
+    let ten = document.getElementById('tenSP').value.trim();
+    let ma = document.getElementById('maSP').value.trim();
+    let dm = document.getElementById('danhMucSP').value;
+    let link = document.getElementById('linkAnhSP').value.trim();
+    let gia = document.getElementById('giaSP').value.trim();
+    let mk = document.getElementById('mkSP').value.trim();
+    let mt = document.getElementById('moTaSP').value.trim();
+    if(!ten||!gia) return alert('Điền Tên & Giá!');
+    dsSanPham.push({ten,ma,danhMuc:dm,linkAnh:link,gia,matKhau:mk,moTa:mt});
+    luuDuLieu(); taiDuLieu();
+    document.getElementById('tb-dangban').style.display='block';
+    setTimeout(()=>document.getElementById('tb-dangban').style.display='none',3000);
+    document.getElementById('tenSP').value
