@@ -1,5 +1,5 @@
 -- ==============================================================================
---  CHILLI HUB V2 - PRECISION 3-PART SOFT BLUE (STRICT MENU ISOLATION)
+--  XUANTHANH HUB V2- PRECISION 3-PART SOFT BLUE (STRICT MENU ISOLATION)
 --  Tối ưu hóa:
 --    1. CÔ LẬP TUYỆT ĐỐI: CHỈ đổi màu đúng 3 phần (Header, Cột Tab trái, Cột nút phải).
 --    2. KHÔNG CAN THIỆP GAME: Tuyệt đối không đụng vào nút game hay menu nội dung bên trong.
@@ -35,7 +35,7 @@ local function replaceAll(str, findStr, replaceStr)
 end
 
 local EXACT_MATCH_VI = {
-    ["Chilli Hub"] = "Chilli Hub V2",
+    ["Chilli Hub"] = "XUANTHANH HUB V2",
     ["Hop"] = "Đổi Server",
     ["Join"] = "Vào Phòng",
     ["Copy"] = "Sao Chép",
@@ -100,7 +100,7 @@ local EXACT_MATCH_VI = {
 }
 
 local MAP_VI = {
-    ["Chilli Hub"] = "Chilli Hub V2",
+    ["Chilli Hub"] = "XUANTHANH HUB V2",
     ["Farm"] = "Cày Cuốc",
     ["Player"] = "Người Chơi",
     ["Predictor"] = "Dự Đoán",
