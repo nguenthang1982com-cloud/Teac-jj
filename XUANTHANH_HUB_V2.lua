@@ -1,225 +1,613 @@
--- ==============================================================================
---  XUANTHANH HUB V2 - PRECISION 3-PART SOFT BLUE (STRICT MENU ISOLATION)
---  Tối ưu hóa:
---    1. CÔ LẬP TUYỆT ĐỐI: CHỈ đổi màu đúng 3 phần (Header, Cột Tab trái, Cột nút phải).
---    2. KHÔNG CAN THIỆP GAME: Tuyệt đối không đụng vào nút game hay menu nội dung bên trong.
---    3. CHỮ TRẮNG NỔI KHỐI: Khóa cứng màu chữ trắng tinh (RGB 255, 255, 255) viền đen nguyên bản.
---    4. XANH NHẠT DỊU MẮT: Phối màu Soft Pastel Sky Blue nhẹ nhàng, không đậm, không chói.
---    5. DỊCH THUẬT 100%: Giữ trọn bộ từ điển Master V5.0 cho toàn bộ hệ thống.
--- ==============================================================================
+-- =========================================================================
+--   🌶️ XUANTHANH HUB V2 - STEAL AN EGG 🥚
+--   KEY + HWID LOCK - 1 KEY = 1 MÁY
+-- =========================================================================
 
+local TweenService = game:GetService("TweenService")
+local HttpService = game:GetService("HttpService")
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
-local TweenService = game:GetService("TweenService")
-local RunService = game:GetService("RunService")
+local Lighting = game:GetService("Lighting")
+
 local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
--- ==================== 1. NẠP SCRIPT CHILLI HUB GỐC ====================
-task.spawn(function()
-    pcall(function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/tienkhanh1/spicy/main/Chilli.lua"))()
-    end)
-end)
+-- =========================================================================
+--   CẤU HÌNH
+-- =========================================================================
 
--- ==================== 2. TỪ ĐIỂN DỊCH THUẬT MASTER ====================
-local currentLanguage = "VI"
-local FastCache = {}
+local CONFIG = {
+    Title = "XUANTHANH HUB V2",
+    Version = "v2.0",
+    TargetScriptUrl = "https://raw.githubusercontent.com/robvxs24/freemium/refs/heads/main/chillihubv2.lua",
 
-local function replaceAll(str, findStr, replaceStr)
-    local startIdx, endIdx = str:find(findStr, 1, true)
-    while startIdx do
-        str = str:sub(1, startIdx - 1) .. replaceStr .. str:sub(endIdx + 1)
-        startIdx, endIdx = str:find(findStr, startIdx + #replaceStr, true)
-    end
-    return str
-end
+    ValidKeys = {
+        ["XUANTHANH2026"] = { type = "vip",      duration = 86400 },
+        ["XUANTHANHVIP"]   = { type = "vip",      duration = 2592000 },
+        ["XUANTHANHFREE"]  = { type = "free",     duration = 1800 },
+        ["TOKUDA2026"]     = { type = "vip",      duration = 2592000 },
+        ["CHILLIV2VIP"]    = { type = "vip",      duration = 86400 },
+    },
 
-local EXACT_MATCH_VI = {
-    ["XUANTHANH HUB V2"] = "XUANTHANH HUB V2",
-    ["Hop"] = "Đổi Server",
-    ["Join"] = "Vào Phòng",
-    ["Copy"] = "Sao Chép",
-    ["Rejoin"] = "Vào Lại",
-    ["Add"] = "Thêm",
-    ["Sell"] = "Bán",
-    ["Favorite"] = "Khóa",
-    ["Unfavorite"] = "Mở Khóa",
-    ["RESET"] = "ĐẶT LẠI",
-    ["All"] = "Tất cả",
-    ["ALL"] = "TẤT CẢ",
-    ["Any"] = "Tất cả",
-    ["None"] = "Không có",
-    ["Off"] = "Tắt",
-    ["OFF"] = "TẮT",
-    ["On"] = "Bật",
-    ["ON"] = "BẬT",
-    ["Idle"] = "Đang chờ",
-    ["IDLE"] = "ĐANG CHỜ",
-    ["Stand"] = "Đứng yên",
-    ["Chase"] = "Đuổi theo",
-    ["Circle"] = "Xoay vòng",
-    ["Patrol"] = "Tuần tra",
-    ["Rarest"] = "Hiếm nhất",
-    ["Nearest"] = "Gần nhất",
-    ["Always"] = "Luôn luôn",
-    ["Never"] = "Không bao giờ",
-    ["Value"] = "Giá trị",
-    ["Cosmic"] = "Vũ Trụ (Cosmic)",
-    ["Divine"] = "Thánh Thần (Divine)",
-    ["Eternal"] = "Vĩnh Cửu (Eternal)",
-    ["Mythic"] = "Thần Thoại (Mythic)",
-    ["Legendary"] = "Huyền Thoại (Legendary)",
-    ["Epic"] = "Sử Thi (Epic)",
-    ["Rare"] = "Hiếm (Rare)",
-    ["Uncommon"] = "Thường (Uncommon)",
-    ["Common"] = "Phổ Thông (Common)",
-    ["Secret"] = "Bí Ẩn (Secret)",
-    ["Least Players"] = "Ít người chơi nhất",
-    ["Steal Then Hop"] = "Cướp xong đổi server",
-    ["Rarity Only"] = "Chỉ theo độ hiếm",
-    ["Rarity And Value"] = "Độ hiếm & Giá trị",
-    ["Value Only"] = "Chỉ theo giá trị",
-    ["Lowest Rarity First"] = "Độ hiếm thấp trước",
-    ["Lowest To Highest"] = "Từ thấp đến cao",
-    ["Highest To Lowest"] = "Từ cao đến thấp",
-    ["Match All"] = "Khớp tất cả",
-    ["Match Any"] = "Khớp bất kỳ",
-    ["Highest Value"] = "Giá trị cao nhất",
-    ["Lowest Value"] = "Giá trị thấp nhất",
-    ["3 - Rare"] = "3 - Hiếm (Rare)",
-    ["6 - Mythic"] = "6 - Thần Thoại (Mythic)",
-    ["EGGS"] = "TRỨNG",
-    ["READY"] = "SẴN SÀNG",
-    ["GROWING"] = "ĐANG LỚN",
-    ["IN BAG"] = "TRONG TÚI",
-    ["TOTAL / S"] = "TỔNG / GIÂY",
-    ["SCRAMBLED"] = "ĐÃ BIẾN ĐỔI",
-    ["GOLDEN"] = "VÀNG",
-    ["SILVER"] = "BẠC",
-    ["RAINBOW"] = "CẦU VỒNG"
+    TrialDuration = 300,
+    KeyFileName = "XuanThanhV2_Key.json",
+    TrialFileName = "XuanThanhV2_Trial.json",
+    HWIDFileName = "XuanThanhV2_HWID.json",
+
+    WarnLevels = {
+        {time = 300, text = "⚠️ KEY CÒN 5 PHÚT",  color = "warn"},
+        {time = 60,  text = "⚠️ KEY CÒN 1 PHÚT",  color = "warn"},
+        {time = 30,  text = "⚠️ KEY CÒN 30 GIÂY", color = "danger"},
+        {time = 10,  text = "❌ SẮP HẾT KEY",      color = "danger"},
+    },
+
+    KickMessage = "🔒 [XUANTHANH HUB] Key đã hết hạn!\n\nVui lòng nhập key mới để tiếp tục sử dụng.",
+    HWIDMismatchMsg = "🔒 [XUANTHANH HUB] Key này đã khóa cho máy khác!\n\nMỗi key chỉ dùng được 1 máy.",
 }
 
-local MAP_VI = {
-    ["XUANTHANH HUB V2"] = "XUANTHANH HUB V2",
-    ["Farm"] = "Cày Cuốc",
-    ["Player"] = "Người Chơi",
-    ["Predictor"] = "Dự Đoán",
-    ["Progress"] = "Tiến Trình",
-    ["Server"] = "Máy Chủ",
-    ["Misc"] = "Khác",
-    ["Auto Hop"] = "Tự Đổi Server",
-    ["Discord"] = "Discord",
-    ["Quick & Keys"] = "Phím Tắt & Key",
-    ["Settings"] = "Cài Đặt",
-    ["Config"] = "Cấu Hình",
-    ["Filter features..."] = "Lọc tính năng...",
-    ["Search"] = "Tìm kiếm",
+local C = {
+    bg       = Color3.fromRGB(15, 6, 9),
+    bg2      = Color3.fromRGB(24, 7, 12),
+    card     = Color3.fromRGB(30, 10, 16),
+    cardHi   = Color3.fromRGB(40, 14, 22),
+    line     = Color3.fromRGB(60, 18, 28),
+    accent   = Color3.fromRGB(220, 68, 98),
+    accent2  = Color3.fromRGB(235, 148, 170),
+    text     = Color3.fromRGB(250, 240, 243),
+    textMid  = Color3.fromRGB(200, 150, 165),
+    textDim  = Color3.fromRGB(130, 75, 95),
+    danger   = Color3.fromRGB(239, 68, 68),
+    success  = Color3.fromRGB(52, 211, 153),
+    warn     = Color3.fromRGB(255, 190, 60),
+}
 
-    ["Dr Scramble Lab & Mech"] = "Phòng Lab & Robot Scramble",
-    ["Butterfly Bloom"] = "Sự Kiện Bắt Bướm",
-    ["Wisp Companion"] = "Đồng Hành Wisp",
-    ["Auto Steal"] = "Tự Động Cướp Trứng",
-    ["Auto Place Egg"] = "Tự Động Đặt Trứng",
-    ["Auto Treadmill"] = "Tự Động Máy Tập",
-    ["Auto Hatch & Equip"] = "Tự Ấp Trứng & Trang Bị",
-    ["Auto Sell"] = "Tự Động Bán",
-    ["Auto Sell Pet"] = "Tự Động Bán Pet",
-    ["Auto Sell Egg"] = "Tự Động Bán Trứng",
-    ["Auto Sell Lab Egg"] = "Tự Động Bán Trứng Lab",
-    ["Auto Fuse Machine"] = "Máy Dung Hợp Pet",
-    ["Auto Favorite"] = "Tự Động Khóa Pet",
-    ["Priority"] = "Ưu Tiên Nhiệm Vụ",
-    ["ESP"] = "Định Vị (ESP)",
-    ["Movement"] = "Di Chuyển",
-    ["Character"] = "Nhân Vật",
-    ["Combat"] = "Chiến Đấu",
-    ["Discord Webhook"] = "Cài Đặt Webhook Discord",
-    ["Egg Predictor"] = "Dự Đoán Trứng",
-    ["Lab Predictor"] = "Dự Đoán Phòng Lab",
-    ["Fuse Predictor"] = "Dự Đoán Dung Hợp",
-    ["Auto Progression"] = "Tự Động Tiến Trình",
-    ["Performance"] = "Hiệu Năng",
-    ["Utility"] = "Tiện Ích",
-    ["Egg Finder"] = "Dò Tìm Trứng",
-    ["Quick Bar 1"] = "Thanh Phím Nhanh 1",
-    ["Quick Bar 2"] = "Thanh Phím Nhanh 2",
+-- =========================================================================
+--   🔒 HWID GENERATOR
+-- =========================================================================
 
-    ["Auto Butterfly Bloom"] = "Tự Động Bắt Bướm",
-    ["Catch Mode"] = "Chế Độ Bắt",
-    ["Catch Priority"] = "Ưu Tiên Bắt",
-    ["Only for Chase mode"] = "Chỉ dùng cho chế độ Đuổi theo",
-    ["Catch Butterflies"] = "Chọn Bướm Cần Bắt",
-    ["Radiant Butterfly"] = "Bướm Rực Rỡ",
-    ["Amethyst Butterfly"] = "Bướm Thạch Anh Tím",
-    ["Sapphire Butterfly"] = "Bướm Lam Ngọc (Sapphire)",
-    ["Emerald Butterfly"] = "Bướm Lục Bảo (Emerald)",
-    ["Tween Speed"] = "Tốc Độ Bay (Tween)",
-    ["Auto Trade Up"] = "Tự Nâng Cấp Bướm",
-    ["Trade Up Tiers"] = "Bậc Nâng Cấp",
-    ["Smart Trade For Essence"] = "Đổi Bướm Lấy Tinh Chất Thông Minh",
-    ["Going to the middle of the bloom"] = "Đang đi tới trung tâm khu bướm nở",
+local HWID = {}
 
-    ["Auto Craft Essence"] = "Tự Chế Tạo Tinh Chất",
-    ["Auto Use Enchanted Essence"] = "Tự Dùng Tinh Chất Phù Phép",
-    ["Essence Min Rarity"] = "Độ Hiếm Nhận Tinh Chất Min",
-    ["Only eggs of this rarity and above get the essence"] = "Chỉ trứng đạt độ hiếm này trở lên mới nhận tinh chất",
-    ["Essence Min Value"] = "Giá Trị Nhận Tinh Chất Min",
-    ["Skip eggs worth less than this (0 = off)"] = "Bỏ qua trứng giá trị nhỏ hơn mức này (0 = tắt)",
-    ["Essence Target Eggs"] = "Mục Tiêu Trứng Nhận Tinh Chất",
-    ["Only use the essence on these eggs (empty = all)"] = "Chỉ dùng tinh chất lên trứng này (trống = tất cả)",
-    ["Essence Priority"] = "Ưu Tiên Dùng Tinh Chất",
-    ["Which egg gets the essence first"] = "Trứng nào được ưu tiên nhận tinh chất trước",
-    ["Essence Skip Enchanted Eggs"] = "Bỏ Qua Trứng Đã Phù Phép",
-    ["Skip eggs that already got Enchanted, other mutations still get the essence"] = "Bỏ qua trứng đã phù phép, đột biến khác vẫn nhận tinh chất",
+-- Hash djb2
+local function _hash(str)
+    local h = 5381
+    for i = 1, #str do
+        h = ((h * 33) + string.byte(str, i)) % 4294967296
+    end
+    return h
+end
 
-    ["Instant Steal"] = "Cướp Siêu Tốc (Instant Steal)",
-    ["Delivers the egg to the safe zone in a few seconds, needs enough Speed"] = "Chuyển trứng về căn cứ trong vài giây (cần đủ tốc độ)",
-    ["Instant Steal Steps"] = "Số Bước Cướp Siêu Tốc",
-    ["Higher is safer but takes longer"] = "Càng nhiều bước càng an toàn nhưng bay chậm hơn",
-    ["Target Areas"] = "Khu Vực Mục Tiêu",
-    ["Min Steal Value"] = "Giá Trị Cướp Min",
-    ["Target Specific Eggs"] = "Chọn Đích Danh Trứng Cần Cướp",
-    ["Steal Missing Lab Eggs"] = "Cướp Trứng Lab Còn Thiếu",
-    ["Steal Missing Index Eggs"] = "Cướp Trứng Sách Còn Thiếu",
-    ["Also steal eggs missing from your index, highest area first"] = "Cướp cả trứng còn thiếu trong sách, ưu tiên khu cao nhất",
-    ["Steal Priority"] = "Ưu Tiên Cướp",
-    ["Carry Speed"] = "Tốc Độ Bê Trứng",
-    ["Over 100% may glitch"] = "Trên 100% có thể bị lỗi vị trí",
-    ["Anti Guard Panel"] = "Bảng Chống Vệ Sĩ",
+-- Seed máy (lưu cố định 1 lần)
+local function _getSeed()
+    local SEED_FILE = "XuanThanhV2_Seed.dat"
+    if isfile and readfile and isfile(SEED_FILE) then
+        local ok, seed = pcall(readfile, SEED_FILE)
+        if ok and seed and #seed > 0 then return seed end
+    end
 
-    ["Place Egg Rule"] = "Quy Tắc Đặt Trứng",
-    ["Place Egg Order"] = "Thứ Tự Đặt Trứng",
-    ["Place Rarities"] = "Độ Hiếm Đặt Trứng",
-    ["Only place eggs of the picked rarities (empty = all)"] = "Chỉ đặt trứng thuộc các độ hiếm đã chọn (trống = tất cả)",
-    ["Place Specific Eggs"] = "Chọn Đích Danh Trứng Cần Đặt",
-    ["Only place these eggs (empty = all)"] = "Chỉ đặt các trứng này (trống = tất cả)",
-    ["Min Place Value"] = "Giá Trị Đặt Min",
-    ["Skip eggs worth less than this (0 = off)"] = "Bỏ qua trứng giá trị thấp hơn mức này (0 = tắt)",
-    ["Stay On Treadmill"] = "Cố Định Trên Máy Tập",
+    local raw = ""
+    raw = raw .. tostring(LocalPlayer.UserId) .. "-"
+    raw = raw .. tostring(os.time()) .. "-"
+    raw = raw .. tostring(math.random(100000, 999999)) .. "-"
+    raw = raw .. tostring(game.PlaceId) .. "-"
+    raw = raw .. tostring(tick()) .. "-"
 
-    ["Auto Hatch"] = "Tự Động Ấp Trứng",
-    ["Hatch Min Rarity"] = "Độ Hiếm Ấp Min",
-    ["Hatch eggs of the chosen rarity and every rarity above it"] = "Ấp trứng từ độ hiếm đã chọn trở lên",
-    ["Min Hatch Value"] = "Giá Trị Ấp Min",
-    ["Hatch Specific Eggs"] = "Chọn Đích Danh Trứng Cần Ấp",
-    ["Auto Equip Best"] = "Tự Trang Bị Pet Tốt Nhất",
-    ["Equip Best when a better pet appears"] = "Tự trang bị khi có pet mạnh hơn xuất hiện",
+    local hashed = string.format("%08X", _hash(raw))
+    if writefile then pcall(writefile, SEED_FILE, hashed) end
+    return hashed
+end
 
-    ["Sell Pets Now"] = "Bán Pet Ngay",
-    ["Sell matching pets once"] = "Bán các pet khớp điều kiện một lần",
-    ["Sell Pet Rule"] = "Quy Tắc Bán Pet",
-    ["Which checks must pass to sell"] = "Các điều kiện bắt buộc để bán",
-    ["Pet Max Rarity"] = "Độ Hiếm Pet Max Cần Bán",
-    ["Sell pets at or below this rarity"] = "Bán pet từ độ hiếm này trở xuống",
-    ["Pet Sell Value"] = "Giá Trị Bán Pet Min",
-    ["Sell pets worth less than this (0 = off)"] = "Bán pet có giá trị nhỏ hơn mức này (0 = tắt)",
-    ["Keep Mutated Pets"] = "Giữ Lại Pet Đột Biến",
-    ["Never sell mutated pets"] = "Không bao giờ bán pet có đột biến",
-    ["Blacklist Sell Pets"] = "Danh Sách Đen Bán Pet",
-    ["These pets are never sold"] = "Những pet này sẽ không bao giờ bị bán",
-    ["Sell bag eggs matching the rules below"] = "Bán trứng trong túi khớp quy tắc dưới",
-    ["Sell Eggs Now"] = "Bán Trứng Ngay",
-    ["Sell matching eggs once"] = "Bán một lần các trứng khớp điều kiện",
+-- Tạo HWID cuối
+function HWID.Generate()
+    local info = {}
+
+    info.UserId = tostring(LocalPlayer.UserId)
+    info.PlaceId = tostring(game.PlaceId)
+    info.Seed = _getSeed()
+
+    if identifyexecutor then
+        pcall(function() info.Executor = identifyexecutor() end)
+    end
+
+    local cam = workspace.CurrentCamera
+    if cam then
+        info.ScreenX = tostring(cam.ViewportSize.X)
+        info.ScreenY = tostring(cam.ViewportSize.Y)
+    end
+
+    info.TimeZone = tostring(os.date("%z"))
+
+    -- Sắp xếp key alphabet
+    local keys = {}
+    for k in pairs(info) do table.insert(keys, k) end
+    table.sort(keys)
+
+    local raw = ""
+    for _, k in ipairs(keys) do
+        raw = raw .. k .. "=" .. tostring(info[k]) .. "|"
+    end
+
+    local final = string.format("%08X", _hash(raw))
+
+    -- Format: XXXX-XXXX-XXXX-XXXX
+    return string.format("%s-%s-%s-%s",
+        final:sub(1, 4),
+        final:sub(5, 8),
+        final:sub(1, 4),
+        final:sub(5, 8)
+    )
+end
+
+-- =========================================================================
+--   🔒 HWID LOCK SYSTEM
+-- =========================================================================
+
+local HWIDLock = {}
+
+local function _loadHWIDDB()
+    if not isfile or not readfile then return {} end
+    if not isfile(CONFIG.HWIDFileName) then return {} end
+    local ok, raw = pcall(readfile, CONFIG.HWIDFileName)
+    if not ok or not raw then return {} end
+    local pOk, data = pcall(function() return HttpService:JSONDecode(raw) end)
+    if not pOk or type(data) ~= "table" then return {} end
+    return data
+end
+
+local function _saveHWIDDB(data)
+    if not writefile then return end
+    pcall(function()
+        writefile(CONFIG.HWIDFileName, HttpService:JSONEncode(data))
+    end)
+end
+
+-- Kiểm tra key có khớp HWID máy này không
+-- Trả về: ok, reason
+function HWIDLock.Check(keyValue)
+    local currentHWID = HWID.Generate()
+    local db = _loadHWIDDB()
+
+    if not db[keyValue] then
+        -- Key chưa dùng lần nào → đăng ký cho máy này
+        db[keyValue] = currentHWID
+        _saveHWIDDB(db)
+        return true, "first_use"
+    end
+
+    if db[keyValue] == currentHWID then
+        -- Key đã đăng ký cho đúng máy này
+        return true, "match"
+    end
+
+    -- Key đã đăng ký cho máy khác
+    return false, "mismatch"
+end
+
+-- Reset khóa (chỉ dùng khi test)
+function HWIDLock.Reset()
+    if delfile then
+        pcall(delfile, CONFIG.HWIDFileName)
+    end
+end
+
+-- =========================================================================
+--   KEY SYSTEM
+-- =========================================================================
+
+local KeySystem = {}
+local XOR_KEY = 137
+
+function KeySystem.Encrypt(str)
+    local r = {}
+    for i = 1, #str do
+        table.insert(r, string.format("%02X", bit32.bxor(string.byte(str, i), XOR_KEY)))
+    end
+    return table.concat(r)
+end
+
+function KeySystem.Decrypt(hex)
+    local r = {}
+    for i = 1, #hex, 2 do
+        local b = tonumber(hex:sub(i, i+1), 16)
+        if not b then return nil end
+        table.insert(r, string.char(bit32.bxor(b, XOR_KEY)))
+    end
+    return table.concat(r)
+end
+
+function KeySystem.SaveKey(keyValue, keyInfo)
+    if not writefile then return end
+    pcall(function()
+        local data = {
+            Key = keyValue,
+            Type = keyInfo.type,
+            HWID = HWID.Generate(),
+            StartTime = os.time(),
+            ExpireTime = os.time() + keyInfo.duration,
+        }
+        writefile(CONFIG.KeyFileName, KeySystem.Encrypt(HttpService:JSONEncode(data)))
+    end)
+end
+
+function KeySystem.LoadKey()
+    if not isfile or not readfile then return nil end
+    if not isfile(CONFIG.KeyFileName) then return nil end
+    local ok, raw = pcall(readfile, CONFIG.KeyFileName)
+    if not ok or not raw or raw == "" then return nil end
+    local dec = KeySystem.Decrypt(raw)
+    if not dec then return nil end
+    local pOk, data = pcall(function() return HttpService:JSONDecode(dec) end)
+    if not pOk or type(data) ~= "table" then return nil end
+    if not data.ExpireTime then return nil end
+    if os.time() > data.ExpireTime then return nil end
+
+    -- 🔒 Kiểm tra HWID
+    local currentHWID = HWID.Generate()
+    if data.HWID and data.HWID ~= currentHWID then
+        print("[HWID] Key đã khóa cho máy khác!")
+        return nil
+    end
+
+    return data
+end
+
+function KeySystem.ClearKey()
+    if not delfile then return end
+    pcall(delfile, CONFIG.KeyFileName)
+end
+
+function KeySystem.SaveTrial()
+    if not writefile then return end
+    pcall(function()
+        local data = {
+            StartTime = os.time(),
+            EndTime = os.time() + CONFIG.TrialDuration,
+            HWID = HWID.Generate(),
+        }
+        writefile(CONFIG.TrialFileName, KeySystem.Encrypt(HttpService:JSONEncode(data)))
+    end)
+end
+
+function KeySystem.LoadTrial()
+    local def = { StartTime = os.time(), EndTime = os.time() + CONFIG.TrialDuration }
+    if not isfile or not readfile then return def end
+    if not isfile(CONFIG.TrialFileName) then
+        KeySystem.SaveTrial()
+        return def
+    end
+    local ok, raw = pcall(readfile, CONFIG.TrialFileName)
+    if not ok or not raw then return def end
+    local dec = KeySystem.Decrypt(raw)
+    if not dec then return def end
+    local pOk, data = pcall(function() return HttpService:JSONDecode(dec) end)
+    if not pOk or type(data) ~= "table" then return def end
+
+    -- Trial cũng lock theo HWID
+    if data.HWID and data.HWID ~= HWID.Generate() then
+        return { StartTime = os.time(), EndTime = 0 }
+    end
+
+    return data
+end
+
+function KeySystem.ValidateKey(input)
+    if not input or input == "" then return nil end
+    local clean = input:gsub("%s", ""):upper()
+    local info = CONFIG.ValidKeys[clean]
+    if info then
+        return info, clean
+    end
+    return nil
+end
+
+-- =========================================================================
+--   HELPERS
+-- =========================================================================
+
+local function New(class, props, parent)
+    local o = Instance.new(class)
+    for k, v in pairs(props or {}) do o[k] = v end
+    o.Parent = parent
+    return o
+end
+
+local function Corner(o, r)
+    return New("UICorner", {CornerRadius = UDim.new(0, r)}, o)
+end
+
+local function Stroke(o, c, t, tr)
+    return New("UIStroke", {Color = c, Thickness = t or 1, Transparency = tr or 0.5}, o)
+end
+
+local function Tween(o, p, d)
+    local t = TweenService:Create(o, TweenInfo.new(d or 0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), p)
+    t:Play()
+    return t
+end
+
+local function FormatFull(sec)
+    sec = math.max(0, math.floor(sec))
+    local d = math.floor(sec / 86400)
+    local h = math.floor((sec % 86400) / 3600)
+    local m = math.floor((sec % 3600) / 60)
+    local s = sec % 60
+    if d > 0 then
+        return string.format("%dd %02dh %02dm", d, h, m)
+    elseif h > 0 then
+        return string.format("%02dh %02dm %02ds", h, m, s)
+    else
+        return string.format("%02d:%02d", m, s)
+    end
+end
+
+local function ShortDuration(sec)
+    if sec >= 2592000 then return math.floor(sec / 2592000) .. " tháng"
+    elseif sec >= 604800 then return math.floor(sec / 604800) .. " tuần"
+    elseif sec >= 86400 then return math.floor(sec / 86400) .. " ngày"
+    elseif sec >= 3600 then return math.floor(sec / 3600) .. " giờ"
+    elseif sec >= 60 then return math.floor(sec / 60) .. " phút"
+    else return sec .. " giây"
+    end
+end
+
+-- =========================================================================
+--   ⏰ EXPIRY CHECKER
+-- =========================================================================
+
+local Expiry = {
+    Gui = nil, TimeLabel = nil, BarFill = nil,
+    FrameStroke = nil, Warned = {}, Running = false,
+}
+
+local function CreateCountdownUI(keyData)
+    if Expiry.Gui then Expiry.Gui:Destroy() end
+
+    Expiry.Gui = New("ScreenGui", {
+        Name = "XuanThanhV2_Countdown",
+        ResetOnSpawn = false, IgnoreGuiInset = true,
+        ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+        DisplayOrder = 998,
+    }, PlayerGui)
+
+    local Frame = New("Frame", {
+        AnchorPoint = Vector2.new(1, 0),
+        Size = UDim2.fromOffset(240, 82),
+        Position = UDim2.new(1, -20, 0, 20),
+        BackgroundColor3 = C.bg, BorderSizePixel = 0,
+        BackgroundTransparency = 0.05,
+    }, Expiry.Gui)
+    Corner(Frame, 12)
+
+    local typeColor = C.accent
+    if keyData and keyData.Type == "vip" then typeColor = C.accent
+    elseif keyData and keyData.Type == "free" then typeColor = C.textMid end
+
+    Expiry.FrameStroke = Stroke(Frame, typeColor, 1.2, 0.3)
+
+    New("TextLabel", {
+        Size = UDim2.fromOffset(80, 14), Position = UDim2.fromOffset(12, 8),
+        BackgroundColor3 = typeColor, BackgroundTransparency = 0.85,
+        Text = keyData and string.upper(keyData.Type) or "KEY",
+        TextColor3 = typeColor,
+        Font = Enum.Font.GothamBold, TextSize = 8,
+    }, Frame)
+
+    New("TextLabel", {
+        Size = UDim2.new(1, -100, 0, 14), Position = UDim2.fromOffset(98, 8),
+        BackgroundTransparency = 1,
+        Text = keyData and keyData.Key or "KEY",
+        TextColor3 = C.textMid, Font = Enum.Font.GothamMedium,
+        TextSize = 9, TextXAlignment = Enum.TextXAlignment.Right,
+    }, Frame)
+
+    Expiry.TimeLabel = New("TextLabel", {
+        Size = UDim2.new(1, -24, 0, 26), Position = UDim2.fromOffset(12, 26),
+        BackgroundTransparency = 1, Text = "00:00:00",
+        TextColor3 = typeColor, Font = Enum.Font.Code,
+        TextSize = 19, TextXAlignment = Enum.TextXAlignment.Left,
+    }, Frame)
+
+    New("TextLabel", {
+        Size = UDim2.new(1, -24, 0, 12), Position = UDim2.fromOffset(12, 52),
+        BackgroundTransparency = 1, Text = "⏱ KEY CÒN LẠI",
+        TextColor3 = C.textDim, Font = Enum.Font.GothamBold,
+        TextSize = 8, TextXAlignment = Enum.TextXAlignment.Left,
+    }, Frame)
+
+    local BarBg = New("Frame", {
+        Size = UDim2.new(1, -24, 0, 3), Position = UDim2.fromOffset(12, 70),
+        BackgroundColor3 = C.bg2, BorderSizePixel = 0,
+    }, Frame)
+    Corner(BarBg, 1.5)
+
+    Expiry.BarFill = New("Frame", {
+        Size = UDim2.new(1, 0, 1, 0),
+        BackgroundColor3 = typeColor, BorderSizePixel = 0,
+    }, BarBg)
+    Corner(Expiry.BarFill, 1.5)
+
+    Frame.Position = UDim2.new(1, 20, 0, 20)
+    Tween(Frame, {Position = UDim2.new(1, -20, 0, 20)}, 0.4)
+end
+
+local function ShowBigWarning(text, colorName, duration)
+    duration = duration or 3
+    local color = C[colorName] or C.warn
+
+    local WG = New("ScreenGui", {
+        Name = "XuanThanhV2_Warn", ResetOnSpawn = false,
+        IgnoreGuiInset = true, DisplayOrder = 1000,
+    }, PlayerGui)
+
+    local WF = New("Frame", {
+        AnchorPoint = Vector2.new(0.5, 0.5),
+        Size = UDim2.fromOffset(520, 80),
+        Position = UDim2.new(0.5, 0, -0.2, 0),
+        BackgroundColor3 = C.bg, BorderSizePixel = 0,
+        BackgroundTransparency = 0.05,
+    }, WG)
+    Corner(WF, 14)
+    Stroke(WF, color, 2, 0.15)
+
+    New("TextLabel", {
+        Size = UDim2.new(1, -20, 1, 0), Position = UDim2.fromOffset(10, 0),
+        BackgroundTransparency = 1, Text = text,
+        TextColor3 = color, Font = Enum.Font.GothamBold, TextSize = 18,
+    }, WF)
+
+    Tween(WF, {Position = UDim2.new(0.5, 0, 0.15, 0)}, 0.4)
+
+    task.delay(duration, function()
+        Tween(WF, {Position = UDim2.new(0.5, 0, -0.2, 0)}, 0.3)
+        task.wait(0.35)
+        WG:Destroy()
+    end)
+end
+
+local function KickPlayer(reason)
+    reason = reason or CONFIG.KickMessage
+    ShowBigWarning("❌ KEY HẾT HẠN - ĐANG KICK", "danger", 2.5)
+    KeySystem.ClearKey()
+    if Expiry.Gui then Expiry.Gui:Destroy() Expiry.Gui = nil end
+    task.wait(2)
+    pcall(function() LocalPlayer:Kick(reason) end)
+    task.wait(1)
+    pcall(function() LocalPlayer.Character:BreakJoints() end)
+end
+
+function Expiry.Start()
+    if Expiry.Running then return end
+    Expiry.Running = true
+    Expiry.Warned = {}
+
+    task.spawn(function()
+        while Expiry.Running do
+            task.wait(1)
+            local keyData = KeySystem.LoadKey()
+            if not keyData then
+                Expiry.Running = false
+                if Expiry.Gui then Expiry.Gui:Destroy() Expiry.Gui = nil end
+                break
+            end
+
+            if not Expiry.Gui then CreateCountdownUI(keyData) end
+
+            local now = os.time()
+            local remaining = keyData.ExpireTime - now
+            local totalDuration = keyData.Duration or 86400
+            local typeColor = C.accent
+            if keyData.Type == "free" then typeColor = C.textMid end
+
+            if Expiry.TimeLabel and Expiry.TimeLabel.Parent then
+                Expiry.TimeLabel.Text = FormatFull(remaining)
+                if remaining <= 60 then
+                    Expiry.TimeLabel.TextColor3 = C.danger
+                    Expiry.FrameStroke.Color = C.danger
+                    Expiry.BarFill.BackgroundColor3 = C.danger
+                elseif remaining <= 300 then
+                    Expiry.TimeLabel.TextColor3 = C.warn
+                    Expiry.FrameStroke.Color = C.warn
+                    Expiry.BarFill.BackgroundColor3 = C.warn
+                else
+                    Expiry.TimeLabel.TextColor3 = typeColor
+                    Expiry.FrameStroke.Color = typeColor
+                    Expiry.BarFill.BackgroundColor3 = typeColor
+                end
+                local ratio = math.clamp(remaining / (totalDuration or 86400), 0, 1)
+                Expiry.BarFill.Size = UDim2.new(ratio, 0, 1, 0)
+            end
+
+            for _, w in ipairs(CONFIG.WarnLevels) do
+                if remaining <= w.time and not Expiry.Warned[w.time] then
+                    Expiry.Warned[w.time] = true
+                    local txt = w.text
+                    if w.time <= 10 then txt = w.text .. " - " .. remaining .. "s" end
+                    ShowBigWarning(txt, w.color, 3)
+                end
+            end
+
+            if remaining <= 0 then
+                Expiry.Running = false
+                KickPlayer()
+                break
+            end
+        end
+    end)
+end
+
+function Expiry.Reset()
+    Expiry.Warned = {}
+    if Expiry.Gui then Expiry.Gui:Destroy() Expiry.Gui = nil end
+end
+
+-- =========================================================================
+--   KEY GUI
+-- =========================================================================
+
+local KeyGui = New("ScreenGui", {
+    Name = "XuanThanhV2_KeyUI", ResetOnSpawn = false,
+    ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+    IgnoreGuiInset = true, DisplayOrder = 999,
+}, PlayerGui)
+
+local Blur = New("BlurEffect", {Size = 24}, Lighting)
+
+local KeyFrame = New("Frame", {
+    AnchorPoint = Vector2.new(0.5, 0.5),
+    Size = UDim2.new(0, 420, 0, 420),
+    Position = UDim2.new(0.5, 0, 0.5, 0),
+    BackgroundColor3 = C.bg, BorderSizePixel = 0,
+}, KeyGui)
+Corner(KeyFrame, 20)
+Stroke(KeyFrame, C.accent, 1.4, 0.2)
+
+local KeyScale = New("UIScale", {Scale = 0.5}, KeyFrame)
+
+task.spawn(function()
+    while KeyFrame.Parent do
+        local v = (math.sin(tick() * 1.8) + 1) / 2
+        local s = KeyFrame:FindFirstChildOfClass("UIStroke")
+        if s then
+            s.Color = Color3.new(
+                (190 + math.floor(v * 35)) / 255,
+                (45 + math.floor(v * 25)) / 255,
+                (75 + math.floor(v * 30)) / 255
+            )
+        end
+        task.wait(0.05)
+    end
+end)
+
+local Header = New("Frame", {
+    Size = UDim2.new(1, -40, 0, 60),
+    Position = UDim2.fromOffset(20, 20),
+    BackgroundTransparency = 1,
+}, KeyFrame)
+
+local LogoBox = New("Frame", {
+    Size = UDim2.fromOffset(48, 48),
+    Position = UDim2.fromOffset(0, 6),
+    BackgroundColor3 = C.bg2,
+}, Header)
+Corner(LogoBox, 14)
+Stroke(LogoBox, C.accent, 1.2)
+New("TextLabel", {
+    Size = UDim2.new(1, 0, 1, 0), BackgroundTransparency = 1,
+    Text = "🔒", TextSize = 22,
+}, LogoBox)
+
+New("TextLabel", {
+    Size = UDim2.new(1, -60, 0, 20), Position = UDim2.fromOffset(60, 6),
+    BackgroundTransparency = 1, Text = CONFIG.Title .. " · " .. CONFIG.Version,
+    TextColor3 = C.text, Font = Enum.Font.GothamBold,
+    TextSize = 14, TextXAlignment = Enum.TextXAlignment.Left,
+}, Header)
+
+New("TextLabel", {
+    Size = UDim2.new(1, -60, 0, 16), Position = UDim2.fromOffset(60, 28),
+    BackgroundTransparency = 1, Text = "Steal An Egg 🥚 · HWID-LOCKED (1 KEY = 1 MÁY)",
+    TextColor3 = C.accent2, Font = Enum.Font.GothamMedium,
+    TextSize = 9, TextXAlignment = Enum.TextXAlignment.Left,
+}, He= "Bán một lần các trứng khớp điều kiện",
     ["Sell Egg Rule"] = "Quy Tắc Bán Trứng",
     ["Egg Max Rarity"] = "Độ Hiếm Trứng Max Cần Bán",
     ["Sell eggs at or below this rarity"] = "Bán trứng từ độ hiếm này trở xuống",
